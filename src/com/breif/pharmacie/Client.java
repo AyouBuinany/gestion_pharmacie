@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client extends Personne {	
-	private static  int id = 0;
+	private  double id ;
 	private int nbrachat;
 	public String status = "Vide";
-	public Client(String firstName,String lastName,String cni) {
+	public Client(double id ,String firstName,String lastName,String cni) {
 		super(firstName,lastName, cni);
-		this.id++;
+		this.id=id;
 	}
-	public int getId() {
+	public double getId() {
 		return id;
 	}
 	
 	//set
-public void setId() {
-		
-		this.id++;
-		this.nbrachat = id;
-		
+public void setId(double id) {
+		this.id = id;
 	}
 	
 	public int getNbrachat() {
@@ -36,7 +33,7 @@ public void setId() {
 	}
 	@Override
 	public String toString() {
-		return "( id : " + this.id + "," + super.toString() + "   status : " + this.status + ")";
+		return " id : " + this.id + "," + super.toString() + "   status : " + this.status;
 	}
 	
 	

@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Medicament {
 	private String title;
 	private double price;
-	private static int ref = 0;
-	public int id;
+	private static int  count =1;
+	private int ref;
 	private int qte;
 	
 	
@@ -14,8 +14,7 @@ public class Medicament {
 		
 		this.title = title;
 		this.price = price;
-		Medicament.ref++;
-		id = Medicament.ref;
+		this.ref = count++;
 		this.qte = qte;
 		
 	}
@@ -48,7 +47,7 @@ public class Medicament {
      
      public int getRef() {
     	 
-    	 return Medicament.ref;
+    	 return this.ref;
     	 
      }
      
@@ -60,6 +59,10 @@ public class Medicament {
     	 
     	 return qte;
     	 
+     }
+     @Override
+     public String toString() {
+    	 return "reference  : " + this.ref + " Title : " + this.title + " Price : " + this.price + " quantity : " + this.qte;
      }
 	 
      

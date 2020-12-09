@@ -55,11 +55,11 @@ public class Personne {
 		return this.cni;
 		
 	}
-	
-	public void Afficher() {
+	@Override
+	public String toString() {
 		
 		
-		System.out.println(" Nom : " + this.firstName + " prenom : " + this.lastName);
+		return " Nom : " + this.firstName + " prenom : " + this.lastName + " Cni : " + this.cni;
 		
 	}
 	

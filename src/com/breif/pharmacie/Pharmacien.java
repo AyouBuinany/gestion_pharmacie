@@ -4,7 +4,7 @@ package com.breif.pharmacie;
 public class Pharmacien  extends Personne{
 	
      private double Salaire;
-     private static int code = 0;
+     private static int code = 1;
      public int id;
      
      public Pharmacien(String firstName,String lastName,String cni,double salaire){
@@ -14,8 +14,8 @@ public class Pharmacien  extends Personne{
     
     	 this.id =code++;
 	}
-     public int getCode(){
-    	 return Pharmacien.code;
+     public int getId(){
+    	 return this.id;
      }
      
      
@@ -27,7 +27,9 @@ public class Pharmacien  extends Personne{
     	 this.Salaire = salaire;
      }
      
-     
+     public String toString() {
+    	 return " id : " +  this.id +  super.toString() +  " Salaire : " + this.Salaire ;
+     }
      
      
      

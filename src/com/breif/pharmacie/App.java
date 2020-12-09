@@ -12,7 +12,7 @@ public class App {
 		
 		String nom = "",prenom = "",nom_pharmacien = "",cni_pharmacien="" ,prenom_pharmacien = "",nom_client = "",prenom_client = "";
 		double price,salaire;
-		int ref,choix,verification,code,qte;
+		int ref=0,choix,verification,code,qte;
 		int quiter = 2;
 	    Admin ph = new Admin("Ayoub","el","33HG","32 RUE ELMATAR SAFI");
 	    Scanner myInput = new Scanner(System.in);
@@ -64,9 +64,7 @@ public class App {
 			System.out.println("Entrer le reference  du  Medicament qui va modifier: ");
 			ref = myInput.nextInt();
 			System.out.println("Entrer le nom du  Medicament : ");
-			myInput.nextLine();
-			nom = "";
-			nom += myInput.next();
+			nom = myInput.next();
 			System.out.println("Entrer la quantiter  du  Medicament : ");
 			qte = myInput.nextInt();
 			System.out.println("Entrer le prix du  Medicament : ");
@@ -79,7 +77,8 @@ public class App {
 		case 5: 
 			ph.AfficherMedicamant();
 			break;
-			default : System.out.println("Error "); break;
+			default : System.out.println("Error "); 
+			break;
 		}
 	}else if(verification == 2) {
 		
@@ -109,21 +108,20 @@ public class App {
 			ph.deletepharmacien(code);
 			break;
 		case 3:
+			System.out.println("Entrer le id : ");
+			code = myInput.nextInt();
 			System.out.println("Entrer le nom du  pharmacien : ");
 			myInput.nextLine();
 			nom_pharmacien = "";
 			nom_pharmacien += myInput.next();
 			System.out.println("Entrer le prenom  : ");
-			prenom_pharmacien = "";
-			prenom_pharmacien += myInput.nextLine();
+			prenom_pharmacien = myInput.next();
 			System.out.println("Entrer le salaire : ");
 			salaire = myInput.nextDouble();
-			System.out.println("Entrer le code : ");
-			code = myInput.nextInt();
 			ph.Editpharmacien(nom_pharmacien, salaire, prenom_pharmacien , code);
 			break;
 		case 4: 
-			ph.Afficherpharmacie();
+			ph.Afficherpharmacien();
 			break;
 			default : System.out.println("Error "); break;
 		}
@@ -147,18 +145,18 @@ public class App {
 			qte = myInput.nextInt();
 			System.out.println("Entrer votre references de midicament qui va acheter: ");
 			ref = myInput.nextInt();
-			Client c1 = new Client(nom_client,prenom_client,cne);
+			double id= Math.random();
+			Client c1 = new Client(id,nom_client,prenom_client,cne);
 		    Medicament M1 =	ph.RechercheMedicament(ref);
 	        Facture F1 = new Facture(c1);
 	        F1.addProduct(M1,qte);
-	        F1.getCustomer().Afficher();
-	        F1.afficher();
-	        ph.AfficherClient();
+	        System.out.println(F1.getCustomer().toString());
 	    break;
 		case 2:
+			ph.AfficherMedicamant();
 			System.out.println("Entrer votre references de midicament : ");
 			ref = myInput.nextInt();
-			ph.RechercheMedicament(ref);
+			System.out.println(ph.RechercheMedicament(ref));
 			break;
 		}   
 		}

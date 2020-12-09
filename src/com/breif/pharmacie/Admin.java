@@ -13,7 +13,8 @@ public class Admin extends Personne{
 	private List<Pharmacien> employer;
 	private List<Client> client;
 	public Medicament M1;
-	
+	String msg="";
+	Gestion pharmacie;
 	public Admin(String firstName,String lastName,String cni,String  adresse){
 		// TODO Auto-generated constructor stub.
 		super(firstName,lastName,cni);
@@ -48,11 +49,12 @@ public class Admin extends Personne{
 		this.adresse = adress;
 		
 	}
-	
 	public void AddMedicament(Medicament e) {
 		// TODO Auto-generated method stub
 		medicament.add(e);
-		System.out.println("Le medicamant a ete ajouter");
+		pharmacie= Gestion.AJOUTER;
+		msg= pharmacie.getMessage();
+		System.out.println(msg);
 		AfficherMedicamant();
 	}
 	
@@ -65,7 +67,10 @@ public class Admin extends Personne{
 			if(ref == medicament.get(i).getRef()){
 				
 				medicament.remove(i);
-				System.out.println("Suppression bien effectuer");
+				pharmacie= Gestion.SUPPRIMER;
+				msg= pharmacie.getMessage();
+				
+				System.out.println(msg);
 				test = true;
 				break;
 				
@@ -73,8 +78,10 @@ public class Admin extends Personne{
 		}
 		AfficherMedicamant();
 		if(test == false) {
+			pharmacie= Gestion.ERROR;
+			msg= pharmacie.getMessage();
+			System.out.println(msg);
 			
-			System.out.println("pardon il n'exisit pas se Medicamant");
 			
 		}
 		
@@ -90,15 +97,17 @@ public class Admin extends Personne{
 				medicament.get(i).setTitle(name);
 				medicament.get(i).setPrice(price);
 				medicament.get(i).setQte(qte);
-				System.out.println("Modification bien effectuer");
+				 pharmacie= Gestion.MODIFIER;
+				 
+				System.out.println(pharmacie.getMessage());
 				test = true;
 				break;
 			}
 		}
 		AfficherMedicamant();
            if(test == false) {
-			
-			System.out.println("pardon il n'exisit pas se Medicamant");
+			 pharmacie= Gestion.ERROR;
+			System.out.println(pharmacie.getMessage());
 			
 		}
 		
@@ -108,17 +117,17 @@ public class Admin extends Personne{
 		
 		int i = 0;
 		for(i = 0;i<medicament.size();i++) {	
-			System.out.println("name : " + medicament.get(i).getTitle() + " price : " +  medicament.get(i).getprice() + " references : " + medicament.get(i).id + " quantiter  : " + medicament.get(i).getQte());
+			System.out.println(medicament.get(i).toString());
 		}
 	
   }
 	public Medicament RechercheMedicament(int ref) {
 		int i = 0;
-		
+		 
 		for(i = 0;i<medicament.size();i++) {	
-			if(medicament.get(i).id == ref) {
+			if(ref==medicament.get(i).getRef())  {
 				
-				M1 = medicament.get(i);
+				M1=medicament.get(i);
 				
 			}
 		}
@@ -130,8 +139,10 @@ public class Admin extends Personne{
 	public void Addpharmacien(Pharmacien a) {
 		// TODO Auto-generated method stub
 		employer.add(a);
-		System.out.println("Le pharmacien  a ete ajouter");
-		 Afficherpharmacie();
+		Gestion pharmacien = Gestion.AJOUTER;
+		String msg= pharmacien.getMessage();
+		pharmacien.AfficherMsg("Le pharmacien ",msg );
+		 Afficherpharmacien();
 		
 	}
 	
@@ -142,51 +153,58 @@ public class Admin extends Personne{
 		boolean test = false;
 		for(i = 0;i<employer.size();i++) {
 			
-			if(ref == employer.get(i).getCode()){
-				
+			if(ref == employer.get(i).getId()){
+			
 				employer.remove(i);
-				System.out.println("Suppression bien effectuer");
+				 pharmacie=Gestion.SUPPRIMER;
+				 msg=pharmacie.getMessage();
+				 pharmacie.AfficherMsg("le pharmacien ", msg);
 				test = true;
 				break;
 				
 			}
 		}
-		Afficherpharmacie();
+		Afficherpharmacien();
 		if(test == false) {
+			pharmacie=Gestion.ERROR;
+			msg=pharmacie.getMessage();
+			pharmacie.AfficherMsg("le referance ", msg);
 			
-			System.out.println("pardon il n'exisit pas se pharmacien");
 			
 		}
 		
 	}
 	
-	public void Editpharmacien(String name,double Salaire,String prenom,int code){
+	public void Editpharmacien(String name,double Salaire,String prenom,int id){
 		int i = 0;
 		boolean test = false;
 		for(i = 0;i<employer.size();i++) {
 			
-			if(code == employer.get(i).getCode()) {
+			if(id == employer.get(i).getId()) {
 				
 				employer.get(i).setFirstName(name);
 				employer.get(i).setLastName(prenom);
 				employer.get(i).setSalaire(Salaire);
-				System.out.println("Modification bien effectuer");
+				pharmacie=Gestion.MODIFIER;
+				System.out.println(pharmacie.getMessage());
 				test = true;
 				break;
 			}
 		}
-		Afficherpharmacie();
+		Afficherpharmacien();
 		if(test == false) {
-			System.out.println("pardon il n'exisit pas se pharmacien");
+			pharmacie=Gestion.ERROR;
+			msg=pharmacie.getMessage();
+			pharmacie.AfficherMsg(" le id de pharmacien ", msg);
 		}
 		
 	}
 	
-	public void Afficherpharmacie() {
+	public void Afficherpharmacien() {
 		
 		int i = 0;
 		for(i = 0;i<employer.size();i++) {	
-			System.out.println("name : " + employer.get(i).getFirstName() + " prenom : " +  employer.get(i).getLastName() + " Cni " +employer.get(i).getCni() +  " Salaire : " + employer.get(i).getSalaire() + " code : " +  employer.get(i).getCode());
+			System.out.println(employer.get(i).toString());
 		}
 	
   }
@@ -196,7 +214,7 @@ public void AfficherClient() {
 		int i = 0;
 		for(i = 0;i<client.size();i++) {	
 			if(client.get(i).getStatus()=="fedele") {
-			System.out.println("name : " + client.get(i).getFirstName() + " prenom : " +  client.get(i).getLastName() + " Cni " +client.get(i).getCni() );
+			System.out.println(client.get(i).toString());
 		}
 		}
 	
